@@ -124,7 +124,7 @@ export function LandingPage() {
                     click
                   </span>
                   <span
-                    className="headline-click-cursor pointer-events-none absolute top-[82%] left-[6%] z-10 md:top-[84%] md:left-[5%]"
+                    className="headline-click-cursor pointer-events-none absolute top-[76%] left-[78%] z-10 md:top-[78%] md:left-[80%]"
                     aria-hidden
                   >
                     <CursorArrow />
@@ -183,7 +183,7 @@ export function LandingPage() {
           <section className="mt-14 hidden gap-5 md:grid md:grid-cols-2">
             <article
               id="partner"
-              className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
+              className="rounded-2xl border border-foreground bg-card p-6 lg:p-7"
             >
               <h2 className="text-xl font-bold">{partnershipTitle}</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
@@ -194,7 +194,7 @@ export function LandingPage() {
 
             <article
               id="traffic"
-              className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
+              className="rounded-2xl border border-foreground bg-card p-6 lg:p-7"
             >
               <h2 className="text-xl font-bold">{trafficTitle}</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
@@ -251,7 +251,7 @@ function MobileCtaCard({
   onClick: () => void;
 }) {
   return (
-    <article className="rounded-2xl border border-foreground/40 bg-card/70 p-5">
+    <article className="rounded-2xl border border-foreground bg-card p-5">
       <h2 className="text-lg font-bold">{title}</h2>
       <p className="mt-2 text-sm leading-relaxed text-black">{body}</p>
       <button
