@@ -1,22 +1,27 @@
 # BetStackers
 
-Landing page for **BetStackers**, destined for [BetStakers.com](https://betstakers.com).
+Landing page for **BetStackers** — [betstackers.com](https://betstackers.com).
 
 ## Stack
 
-- **Next.js** (App Router) + **React** + **TypeScript**
-- **Tailwind CSS**
-- **GitHub** — https://github.com/cbeebs/BetStackers
-- **Vercel** — project `betstackers` (auto-deploys from `main`)
+- Next.js (App Router) + React + TypeScript + Tailwind
+- Resend (Vercel Marketplace) for contact form email
+- GitHub → Vercel auto-deploy
 
-## Workflow
+## Contact forms
 
-1. Edit files in this repo
-2. Commit and push to GitHub
-3. Vercel builds and deploys automatically
+All three CTAs open the same modal and email `partners@betstackers.com` with a labelled subject:
 
-## Useful paths
+| CTA | Subject label |
+|-----|----------------|
+| Contact (nav) | General Contact |
+| Partner | Partner Enquiries |
+| Traffic Enquiries | Traffic Enquiries |
 
-- `app/page.tsx` — landing page content
-- `app/layout.tsx` — metadata & fonts
-- `app/globals.css` — design tokens / styles
+## Env
+
+Pulled from Vercel after Resend is installed:
+
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL` (optional, defaults to partners@betstackers.com)
+- `CONTACT_FROM_EMAIL` (optional; use a verified Resend domain sender)

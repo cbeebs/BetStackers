@@ -1,29 +1,33 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BetStackers",
-  description: "BetStackers — coming soon to BetStakers.com",
+  title: "BetStackers — The click before the bet.",
+  description:
+    "BetStackers is the group entity behind a network of localised casino and sportsbook sites. We run acquisition, content and compliance in-house.",
+  metadataBase: new URL("https://betstackers.com"),
+  openGraph: {
+    title: "BetStackers",
+    description: "The click before the bet. Global iGaming traffic.",
+    url: "https://betstackers.com",
+    siteName: "BetStackers",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${dmSans.variable} ${fraunces.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
+        {children}
+      </body>
     </html>
   );
 }
