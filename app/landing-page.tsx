@@ -51,14 +51,14 @@ export function LandingPage() {
 
   return (
     <>
-      <div className="min-h-dvh bg-background text-foreground">
+      <div className="min-h-dvh bg-background text-black">
         <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
           <Logo />
 
           <button
             type="button"
             onClick={() => openForm("general", "Get in touch")}
-            className="flex h-10 w-10 items-center justify-center text-foreground transition-opacity hover:opacity-60"
+            className="flex h-10 w-10 items-center justify-center text-black transition-opacity hover:opacity-70"
             aria-label="Contact"
           >
             <MailIcon />
@@ -76,7 +76,7 @@ export function LandingPage() {
                 <br />
                 the bet.
               </h1>
-              <div className="mt-6 max-w-md space-y-3 text-[15px] leading-relaxed text-foreground/85">
+              <div className="mt-6 max-w-md space-y-3 text-[15px] leading-relaxed text-black">
                 <p>
                   BetStackers is the group entity behind a network of localised
                   casino and sportsbook sites.
@@ -126,7 +126,7 @@ export function LandingPage() {
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
               <h2 className="text-xl font-bold">For partnerships</h2>
-              <p className="mt-2 mb-5 text-sm leading-relaxed text-foreground/75">
+              <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
                 {friendlyBlurb}
               </p>
               <EnquiryForm formType="partnerships" />
@@ -137,7 +137,7 @@ export function LandingPage() {
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
               <h2 className="text-xl font-bold">For Traffic</h2>
-              <p className="mt-2 mb-5 text-sm leading-relaxed text-foreground/75">
+              <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
                 {friendlyBlurb}
               </p>
               <EnquiryForm formType="traffic" />
@@ -146,9 +146,9 @@ export function LandingPage() {
         </main>
 
         <footer className="border-t border-foreground/15">
-          <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 sm:px-8 lg:px-10">
-            <Logo />
-            <p className="text-xs text-foreground/55">
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-6 sm:px-8 sm:py-8 lg:px-10">
+            <Logo size="footer" />
+            <p className="shrink-0 text-right text-[9px] leading-none text-black sm:text-[11px]">
               © 2026 BetStackers. All rights reserved.
             </p>
           </div>
@@ -185,7 +185,7 @@ function MobileCtaCard({
   return (
     <article className="rounded-2xl border border-foreground/40 bg-card/70 p-5">
       <h2 className="text-lg font-bold">{title}</h2>
-      <p className="mt-2 text-sm leading-relaxed text-foreground/75">{body}</p>
+      <p className="mt-2 text-sm leading-relaxed text-black">{body}</p>
       <button type="button" onClick={onClick} className={buttonClass}>
         Send
         <SendIcon />

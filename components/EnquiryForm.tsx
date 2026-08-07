@@ -17,9 +17,9 @@ type EnquiryFormProps = {
 };
 
 const inputClass =
-  "h-11 w-full rounded-lg border border-foreground/40 bg-white/40 px-3 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
+  "h-11 w-full rounded-lg border border-foreground/40 bg-white/40 px-3 text-sm text-black outline-none placeholder:text-black focus:border-foreground";
 const textareaClass =
-  "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
+  "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-sm text-black outline-none placeholder:text-black focus:border-foreground";
 
 export function SendIcon() {
   return (
@@ -114,7 +114,7 @@ export function EnquiryForm({
     return (
       <div className={variant === "card" ? "py-8 text-center" : "py-6 text-center"}>
         <p className="text-base font-bold">Message sent</p>
-        <p className="mt-2 text-sm text-foreground/70">
+        <p className="mt-2 text-sm text-black">
           Thanks — we&apos;ll get back to you shortly.
         </p>
         <button
@@ -290,12 +290,12 @@ export function EnquiryModal({
             <h2 id={titleId} className="text-lg font-bold">
               {title}
             </h2>
-            <p className="mt-1 text-sm text-foreground/70">{blurb}</p>
+            <p className="mt-1 text-sm text-black">{blurb}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/5"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-black hover:bg-black/5"
             aria-label="Close"
           >
             ×

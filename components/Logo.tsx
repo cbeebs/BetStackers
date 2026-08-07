@@ -26,17 +26,29 @@ export function LogoMark({ className = "h-8 w-7" }: { className?: string }) {
   );
 }
 
-export function Logo({ className = "" }: { className?: string }) {
-  // ~15% larger than previous h-8 / 15–16px type
+export function Logo({
+  className = "",
+  size = "default",
+}: {
+  className?: string;
+  size?: "default" | "footer";
+}) {
+  const markClass =
+    size === "footer"
+      ? "h-7 w-6 sm:h-8 sm:w-7"
+      : "h-[2.3rem] w-8 sm:h-10 sm:w-9";
+  const textClass =
+    size === "footer"
+      ? "text-[13px] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[15px]"
+      : "text-[17px] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[18.5px]";
+
   return (
     <a
       href="/"
-      className={`inline-flex items-center gap-3 text-foreground ${className}`}
+      className={`inline-flex items-center gap-2.5 text-black ${className}`}
     >
-      <LogoMark className="h-[2.3rem] w-8 sm:h-10 sm:w-9" />
-      <span className="text-[17px] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[18.5px]">
-        BetStackers
-      </span>
+      <LogoMark className={markClass} />
+      <span className={textClass}>BetStackers</span>
     </a>
   );
 }
