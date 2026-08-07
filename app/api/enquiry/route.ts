@@ -90,9 +90,11 @@ export async function POST(request: Request) {
   }
 
   const to = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
+  // From must NOT be partners@ — Gmail treats that as "me", so Reply
+  // fills To with partners@ instead of the enquirer (Reply-To).
   const from =
     process.env.CONTACT_FROM_EMAIL ??
-    "BetStackers <partners@betstackers.com>";
+    "BetStackers <noreply@betstackers.com>";
 
   let subject: string;
   let text: string;
@@ -103,6 +105,7 @@ export async function POST(request: Request) {
       Form: "Affiliate partnerships",
       Name: data.name,
       Email: data.email,
+      "Reply-To": data.email,
       Brand: data.brand,
       Markets: data.markets,
       Website: data.website ?? "",
@@ -115,6 +118,7 @@ export async function POST(request: Request) {
       Form: "Media & traffic",
       Name: data.name,
       Email: data.email,
+      "Reply-To": data.email,
       Company: data.company,
       "Enquiry type": data.enquiryType,
       Message: data.message,
