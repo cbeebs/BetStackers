@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 44" fill="none" role="img" aria-label="BetStackers">
-  <rect width="36" height="44" fill="#eafb8f"/>
-  <g stroke="#000" stroke-width="1.5" stroke-linejoin="miter" stroke-miterlimit="2.5" stroke-linecap="butt" fill="none">
-    <path d="M10 26.5 18 22l8 4.5V34l-8 4.5L10 34V26.5Z"/>
-    <path d="M10 18.5 18 14l8 4.5V26l-8 4.5L10 26V18.5Z"/>
-    <path d="M10 10.5 18 6l8 4.5V18l-8 4.5L10 18V10.5Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" fill="none" role="img" aria-label="BetStackers">
+  <rect width="64" height="80" fill="#eafb8f"/>
+  <g stroke="#000" stroke-width="2.75" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <path d="M16 48 32 39l16 9v16L32 73 16 64V48Z"/>
+    <path d="M16 33 32 24l16 9v16L32 58 16 49V33Z"/>
+    <path d="M16 18 32 9l16 9v16L32 43 16 34V18Z"/>
   </g>
 </svg>

@@ -2,25 +2,24 @@
 export function LogoMark({ className = "h-8 w-7" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 36 44"
+      viewBox="0 0 64 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden
       overflow="visible"
-      shapeRendering="geometricPrecision"
     >
       <g
         stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="miter"
-        strokeMiterlimit="2.5"
-        strokeLinecap="butt"
+        strokeWidth="2.75"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        fill="none"
       >
-        {/* Drawn back → front so overlaps stay clean */}
-        <path d="M10 26.5 18 22l8 4.5V34l-8 4.5L10 34V26.5Z" />
-        <path d="M10 18.5 18 14l8 4.5V26l-8 4.5L10 26V18.5Z" />
-        <path d="M10 10.5 18 6l8 4.5V18l-8 4.5L10 18V10.5Z" />
+        {/* Back → front. High-res viewBox + round joins stay clean when scaled down. */}
+        <path d="M16 48 32 39l16 9v16L32 73 16 64V48Z" />
+        <path d="M16 33 32 24l16 9v16L32 58 16 49V33Z" />
+        <path d="M16 18 32 9l16 9v16L32 43 16 34V18Z" />
       </g>
     </svg>
   );
@@ -35,8 +34,8 @@ export function Logo({
 }) {
   const markClass =
     size === "footer"
-      ? "h-7 w-[1.43rem] sm:h-8 sm:w-[1.64rem]"
-      : "h-[2.3rem] w-[1.88rem] sm:h-10 sm:w-[2.05rem]";
+      ? "h-7 w-[1.4rem] sm:h-8 sm:w-6"
+      : "h-[2.3rem] w-[1.84rem] sm:h-10 sm:w-8";
   const textClass =
     size === "footer"
       ? "text-[13px] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[15px]"
