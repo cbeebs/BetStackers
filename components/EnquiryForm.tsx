@@ -17,9 +17,9 @@ type EnquiryFormProps = {
 };
 
 const inputClass =
-  "h-11 w-full rounded-lg border border-foreground/80 bg-input px-3 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
+  "h-11 w-full rounded-lg border border-foreground/40 bg-white/40 px-3 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
 const textareaClass =
-  "w-full resize-none rounded-lg border border-foreground/80 bg-input px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
+  "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
 
 export function EnquiryForm({
   formType,
@@ -106,7 +106,7 @@ export function EnquiryForm({
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-5 inline-flex h-10 items-center justify-center rounded-lg bg-foreground px-4 text-sm font-semibold text-background"
+          className="mt-5 inline-flex h-10 items-center justify-center rounded-lg bg-black px-4 text-sm font-semibold text-white"
         >
           Send another
         </button>
@@ -207,10 +207,9 @@ export function EnquiryForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-foreground text-sm font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="mt-1 inline-flex h-11 w-full items-center justify-center rounded-lg bg-black text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Send Enquiry"}
-        {status === "sending" ? null : <ArrowIcon />}
+        {status === "sending" ? "Sending…" : "Send"}
       </button>
     </form>
   );
@@ -228,20 +227,6 @@ function Field({
       {children}
       {error ? <p className="mt-1 text-xs text-red-700">{error}</p> : null}
     </div>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-      <path
-        d="M3 9L9 3M9 3H4.5M9 3V7.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 

@@ -1,4 +1,5 @@
-export function LogoMark({ className = "h-7 w-7" }: { className?: string }) {
+/** Crisp vector mark — three stacked isometric tiles. */
+export function LogoMark({ className = "h-8 w-7" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 32 36"
@@ -6,38 +7,35 @@ export function LogoMark({ className = "h-7 w-7" }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden
+      shapeRendering="geometricPrecision"
     >
-      <path
-        d="M8 22.5L16 18l8 4.5V31l-8 4.5L8 31V22.5z"
+      <g
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.35"
         strokeLinejoin="round"
-      />
-      <path
-        d="M8 13.5L16 9l8 4.5V22L16 26.5 8 22V13.5z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 4.5L16 0l8 4.5V13L16 17.5 8 13V4.5z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
+        strokeLinecap="round"
+      >
+        {/* Bottom */}
+        <path d="M8 22.5 16 18l8 4.5V31l-8 4.5L8 31V22.5Z" />
+        {/* Middle */}
+        <path d="M8 13.5 16 9l8 4.5V22L16 26.5 8 22V13.5Z" />
+        {/* Top */}
+        <path d="M8 4.5 16 0l8 4.5V13L16 17.5 8 13V4.5Z" />
+      </g>
     </svg>
   );
 }
 
 export function Logo({ className = "" }: { className?: string }) {
+  // ~15% larger than previous h-8 / 15–16px type
   return (
     <a
       href="/"
-      className={`inline-flex items-center gap-2.5 text-foreground ${className}`}
+      className={`inline-flex items-center gap-3 text-foreground ${className}`}
     >
-      <LogoMark className="h-8 w-7" />
-      <span className="text-[15px] font-extrabold tracking-[0.04em] uppercase sm:text-base">
-        BetStacker
+      <LogoMark className="h-[2.3rem] w-8 sm:h-10 sm:w-9" />
+      <span className="text-[17px] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[18.5px]">
+        BetStackers
       </span>
     </a>
   );
