@@ -44,13 +44,13 @@ body {
 @keyframes headline-cursor-press {
   0%,
   100% {
-    transform: rotate(52deg) translate(0, 0) scale(1);
+    transform: scaleX(-1) rotate(52deg) translate(0, 0) scale(1);
   }
   3% {
-    transform: rotate(52deg) translate(1.5px, 2.5px) scale(0.9);
+    transform: scaleX(-1) rotate(52deg) translate(-1.5px, 2.5px) scale(0.9);
   }
   7% {
-    transform: rotate(52deg) translate(0, 0) scale(1);
+    transform: scaleX(-1) rotate(52deg) translate(0, 0) scale(1);
   }
 }
 
@@ -76,7 +76,7 @@ body {
 .headline-click-cursor {
   animation: headline-cursor-press 8s ease-in-out infinite;
   animation-delay: 3s;
-  transform: rotate(52deg);
+  transform: scaleX(-1) rotate(52deg);
   transform-origin: 1.5px 1.5px;
 }
 
