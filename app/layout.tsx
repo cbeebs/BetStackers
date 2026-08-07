@@ -11,11 +11,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "BetStackers — The click before the bet.",
   description:
-    "BetStackers is the group entity behind a network of localised casino and sportsbook sites. We run acquisition, content and compliance in-house.",
+    "BetStackers is the group entity behind a network of localised casino and sportsbook sites. We run acquisition, content and tech, and partner directly with operators and media buyers.",
   metadataBase: new URL("https://betstackers.com"),
   openGraph: {
     title: "BetStackers",
-    description: "The click before the bet. Global iGaming traffic.",
+    description: "We build. We scale. We stack value.",
     url: "https://betstackers.com",
     siteName: "BetStackers",
     type: "website",

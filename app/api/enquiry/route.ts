@@ -83,18 +83,22 @@ export async function POST(request: Request) {
   const inbox = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
   const source = FORM_SOURCES[data.formType];
 
+  const subject =
+    data.formType === "partnerships"
+      ? data.company?.trim() || `Partnership enquiry from ${data.name}`
+      : data.website?.trim() || `Traffic enquiry from ${data.name}`;
+
   const lines = [
     `Source: ${source}`,
     `Name: ${data.name}`,
     `Email: ${data.email}`,
     ...(data.company?.trim() ? [`Company: ${data.company.trim()}`] : []),
-    `Subject: ${data.subject}`,
+    ...(data.website?.trim() ? [`Website / Source: ${data.website.trim()}`] : []),
     "",
     "Message:",
     data.message,
   ];
 
-  const text = lines.join("\n");
   const from = `${data.name.replace(/[<>"]/g, "")} via BetStackers <noreply@betstackers.com>`;
 
   const resend = new Resend(apiKey);
@@ -102,11 +106,9 @@ export async function POST(request: Request) {
     from,
     to: [inbox],
     replyTo: data.email,
-    subject: data.subject,
-    text,
-    headers: {
-      "Reply-To": data.email,
-    },
+    subject,
+    text: lines.join("\n"),
+    headers: { "Reply-To": data.email },
   });
 
   if (error) {
