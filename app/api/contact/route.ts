@@ -78,7 +78,7 @@ export async function POST(request: Request) {
     from,
     to: [to],
     replyTo: email,
-    subject: `[${source}] New enquiry from ${name}`,
+    subject: source,
     html,
   });
 

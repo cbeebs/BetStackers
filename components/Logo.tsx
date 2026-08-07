@@ -9,13 +9,10 @@ export function Logo({ className = "" }: { className?: string }) {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
+        <rect width="28" height="28" rx="4" fill="#00FF88" />
         <path
-          d="M6 4h9.2c3.4 0 5.8 1.9 5.8 4.7 0 2-1.1 3.5-2.9 4.2v.1c2.3.7 3.7 2.4 3.7 4.8 0 3.2-2.6 5.2-6.4 5.2H6V4zm4.1 3.4v4.1h4.6c1.5 0 2.4-.8 2.4-2.1s-.9-2-2.4-2H10.1zm0 7.3v4.5h5.2c1.7 0 2.8-.9 2.8-2.3s-1.1-2.2-2.8-2.2h-5.2z"
-          fill="#00FF88"
-        />
-        <path
-          d="M10.1 7.4h4.6c1.5 0 2.4.8 2.4 2.1s-.9 2.1-2.4 2.1h-4.6V7.4z"
-          fill="#FFFFFF"
+          d="M8.5 6.5h6.4c2.55 0 4.35 1.35 4.35 3.45 0 1.45-.85 2.55-2.2 3.05v.1c1.7.5 2.75 1.75 2.75 3.55 0 2.4-2 3.85-4.85 3.85H8.5V6.5zm3.05 2.5v3.05h3.15c1.1 0 1.75-.55 1.75-1.5s-.65-1.55-1.75-1.55h-3.15zm0 5.45v3.35h3.55c1.25 0 2.05-.65 2.05-1.7s-.8-1.65-2.05-1.65h-3.55z"
+          fill="#000000"
         />
       </svg>
       <span className="text-[15px] font-bold tracking-[0.06em] text-white uppercase sm:text-base">
