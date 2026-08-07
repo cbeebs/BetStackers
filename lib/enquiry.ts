@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const FORM_SOURCES = {
-  partnerships: "Partnerships",
-  traffic: "Traffic",
+  partnerships: "Operators & Networks",
+  traffic: "Media",
   general: "General",
 } as const;
 

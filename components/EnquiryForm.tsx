@@ -17,9 +17,9 @@ type EnquiryFormProps = {
 };
 
 const inputClass =
-  "h-11 w-full rounded-lg border border-foreground/40 bg-white/40 px-3 text-sm text-black outline-none placeholder:text-black focus:border-foreground";
+  "h-11 w-full rounded-lg border border-foreground/40 bg-white/40 px-3 text-base text-black outline-none placeholder:text-black focus:border-foreground";
 const textareaClass =
-  "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-sm text-black outline-none placeholder:text-black focus:border-foreground";
+  "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-base text-black outline-none placeholder:text-black focus:border-foreground";
 
 export function SendIcon() {
   return (

@@ -6,14 +6,15 @@ import { EnquiryForm, EnquiryModal, SendIcon } from "@/components/EnquiryForm";
 import { Logo } from "@/components/Logo";
 import type { FormType } from "@/lib/enquiry";
 
-const partnershipBlurb =
-  "Looking to partner up? Drop us a note — we'd love to hear from you and we'll get back to you soon.";
+const partnershipBlurb = "Looking to partner up? We'd love to hear from you.";
 
-const trafficBlurb =
-  "Got traffic to talk about? Reach out anytime — we'll take a look and get back to you shortly.";
+const trafficBlurb = "Got traffic? Want traffic? Let's talk.";
 
 const generalBlurb =
   "Got something in mind? Simply reach out — we'll be sure to get back to you.";
+
+const partnershipTitle = "For Operators & Networks";
+const trafficTitle = "For Media";
 
 const TELEGRAM_HANDLE = "@betstackers";
 const TELEGRAM_URL = "https://t.me/betstackers";
@@ -72,16 +73,8 @@ function TelegramIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
-        d="M21.5 4.5 2.8 11.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.7.4 1 .9 1 .5 0 .7-.2 1-.6l2.7-3.5 5.6 4.1c1 .6 1.8.3 2-.9L22.8 5.8c.3-1.3-.5-1.9-1.3-1.3Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="m9.2 14.6 9.8-8.2"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
+        d="M21.8 4.3 2.9 11.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 11.1-7c.5-.3 1-.1.6.2L9.9 15.9l-.3 4.6c.5 0 .7-.2 1-.6l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.9L22.9 5.6c.3-1.2-.4-1.8-1.1-1.3Z"
+        fill="currentColor"
       />
     </svg>
   );
@@ -111,7 +104,7 @@ export function LandingPage() {
           <button
             type="button"
             onClick={() => openForm("general", "Get in touch", generalBlurb)}
-            className="flex h-10 w-10 items-center justify-center text-black transition-opacity hover:opacity-70"
+            className="flex size-[2.3rem] items-center justify-center text-black transition-opacity hover:opacity-70 sm:size-10"
             aria-label="Contact"
           >
             <MailIcon />
@@ -131,7 +124,7 @@ export function LandingPage() {
                     click
                   </span>
                   <span
-                    className="headline-click-cursor pointer-events-none absolute top-[42%] left-[52%] z-10"
+                    className="headline-click-cursor pointer-events-none absolute top-[82%] left-[6%] z-10 md:top-[84%] md:left-[5%]"
                     aria-hidden
                   >
                     <CursorArrow />
@@ -169,23 +162,19 @@ export function LandingPage() {
           <section className="mt-10 grid gap-4 md:hidden">
             <div id="partner">
               <MobileCtaCard
-                title="For partnerships"
+                title={partnershipTitle}
                 body={partnershipBlurb}
                 onClick={() =>
-                  openForm(
-                    "partnerships",
-                    "For partnerships",
-                    partnershipBlurb,
-                  )
+                  openForm("partnerships", partnershipTitle, partnershipBlurb)
                 }
               />
             </div>
             <div id="traffic">
               <MobileCtaCard
-                title="For Traffic"
+                title={trafficTitle}
                 body={trafficBlurb}
                 onClick={() =>
-                  openForm("traffic", "For Traffic", trafficBlurb)
+                  openForm("traffic", trafficTitle, trafficBlurb)
                 }
               />
             </div>
@@ -196,7 +185,7 @@ export function LandingPage() {
               id="partner"
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
-              <h2 className="text-xl font-bold">For partnerships</h2>
+              <h2 className="text-xl font-bold">{partnershipTitle}</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
                 {partnershipBlurb}
               </p>
@@ -207,7 +196,7 @@ export function LandingPage() {
               id="traffic"
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
-              <h2 className="text-xl font-bold">For Traffic</h2>
+              <h2 className="text-xl font-bold">{trafficTitle}</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
                 {trafficBlurb}
               </p>
@@ -219,13 +208,13 @@ export function LandingPage() {
             href={TELEGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 flex h-12 items-center justify-between gap-3 rounded-xl bg-[#132a5c] px-4 text-white transition-opacity hover:opacity-90 sm:h-11 sm:px-5"
+            className="mt-6 flex h-12 items-center justify-between gap-3 rounded-xl bg-[#229ED9] px-4 text-white transition-opacity hover:opacity-90 sm:h-11 sm:px-5"
           >
             <span className="inline-flex items-center gap-2.5 text-[13px] font-semibold tracking-wide">
               <TelegramIcon />
               Telegram
             </span>
-            <span className="font-mono text-[12px] tracking-wide text-white/95 sm:text-[13px]">
+            <span className="font-mono text-[12px] tracking-wide text-white sm:text-[13px]">
               {TELEGRAM_HANDLE}
             </span>
           </a>
