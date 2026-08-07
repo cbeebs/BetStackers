@@ -98,7 +98,7 @@ export function LandingPage() {
         </header>
 
         <main className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 lg:px-10">
-          <section className="grid items-center gap-10 pt-11 lg:grid-cols-2 lg:gap-8 lg:pt-10">
+          <section className="grid items-center gap-5 pt-11 lg:grid-cols-2 lg:gap-8 lg:pt-10">
             <div>
               <p className="text-[9px] font-semibold tracking-[0.18em] sm:text-[10px]">
                 GLOBAL iGAMING TRAFFIC
