@@ -85,8 +85,10 @@ export function LandingPage() {
               <p className="text-[11px] font-semibold tracking-[0.18em] uppercase">
                 Global iGaming Traffic and Content.
               </p>
-              <h1 className="mt-4 text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl lg:text-[3.4rem]">
-                The click before the bet.
+              <h1 className="mt-4 text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-6xl lg:text-[4.25rem]">
+                The click before
+                <br />
+                the bet.
               </h1>
               <div className="mt-6 max-w-md space-y-3 text-[15px] leading-relaxed text-foreground/85">
                 <p>
