@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { enquirySchema } from "@/lib/enquiry";
+import { FORM_SOURCES, enquirySchema } from "@/lib/enquiry";
 import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -8,32 +8,6 @@ function clientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) return forwarded.split(",")[0]?.trim() || "unknown";
   return request.headers.get("x-real-ip") ?? "unknown";
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function fieldLines(fields: Record<string, string>): string {
-  return Object.entries(fields)
-    .filter(([, value]) => value.trim().length > 0)
-    .map(([label, value]) => `${label}: ${value}`)
-    .join("\n");
-}
-
-function fieldHtml(fields: Record<string, string>): string {
-  return Object.entries(fields)
-    .filter(([, value]) => value.trim().length > 0)
-    .map(
-      ([label, value]) =>
-        `<p style="margin:0 0 10px"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value).replaceAll("\n", "<br/>")}</p>`,
-    )
-    .join("");
 }
 
 export async function POST(request: Request) {
@@ -106,66 +80,21 @@ export async function POST(request: Request) {
     );
   }
 
-  // Deliver to personal inbox if set — avoids Gmail "Treat as alias" putting
-  // partners@ back in To on Reply. Otherwise partners@ (ImprovMX → Gmail).
   const inbox = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
+  const source = FORM_SOURCES[data.formType];
 
-  let subject: string;
-  let fields: Record<string, string>;
-
-  if (data.formType === "affiliate") {
-    subject = `[Affiliate] ${data.brand} — ${data.markets}`;
-    fields = {
-      Form: "Affiliate partnerships",
-      Name: data.name,
-      Email: data.email,
-      Brand: data.brand,
-      Markets: data.markets,
-      Website: data.website ?? "",
-      Company: data.company ?? "",
-      Message: data.message,
-    };
-  } else {
-    subject = `[Media] ${data.company} — ${data.enquiryType}`;
-    fields = {
-      Form: "Media & traffic",
-      Name: data.name,
-      Email: data.email,
-      Company: data.company,
-      "Enquiry type": data.enquiryType,
-      Message: data.message,
-    };
-  }
-
-  const replySubject = `Re: ${subject}`;
-  const mailto = `mailto:${encodeURIComponent(data.email)}?subject=${encodeURIComponent(replySubject)}`;
-
-  const text = [
-    `Reply to ${data.name}: ${data.email}`,
+  const lines = [
+    `Source: ${source}`,
+    `Name: ${data.name}`,
+    `Email: ${data.email}`,
+    ...(data.company?.trim() ? [`Company: ${data.company.trim()}`] : []),
+    `Subject: ${data.subject}`,
     "",
-    fieldLines(fields),
-  ].join("\n");
+    "Message:",
+    data.message,
+  ];
 
-  const html = `
-    <div style="font-family:Inter,Arial,sans-serif;line-height:1.5;color:#111;max-width:560px">
-      <p style="margin:0 0 16px">
-        <a href="${mailto}"
-           style="display:inline-block;background:#00ff88;color:#000;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:6px">
-          Reply to ${escapeHtml(data.name)}
-        </a>
-      </p>
-      <p style="margin:0 0 20px;color:#444;font-size:14px">
-        Or hit Reply in Gmail — it should go to
-        <a href="${mailto}">${escapeHtml(data.email)}</a>
-        (not partners@).
-      </p>
-      <hr style="border:none;border-top:1px solid #eee;margin:0 0 16px" />
-      ${fieldHtml(fields)}
-    </div>
-  `;
-
-  // From display uses the enquirer name so the thread is obvious.
-  // Never From partners@ — that makes Gmail Reply target partners@.
+  const text = lines.join("\n");
   const from = `${data.name.replace(/[<>"]/g, "")} via BetStackers <noreply@betstackers.com>`;
 
   const resend = new Resend(apiKey);
@@ -173,9 +102,8 @@ export async function POST(request: Request) {
     from,
     to: [inbox],
     replyTo: data.email,
-    subject,
+    subject: data.subject,
     text,
-    html,
     headers: {
       "Reply-To": data.email,
     },

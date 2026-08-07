@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import type { FormType } from "@/lib/enquiry";
+import { FORM_SOURCES, type FormType } from "@/lib/enquiry";
 
 type EnquiryModalProps = {
   open: boolean;
@@ -13,15 +13,6 @@ const inputClass =
   "h-12 w-full rounded-md border border-border bg-black px-4 text-sm text-white outline-none placeholder:text-muted-dim focus:border-accent";
 const textareaClass =
   "w-full resize-none rounded-md border border-border bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-muted-dim focus:border-accent";
-const selectClass =
-  "h-12 w-full rounded-md border border-border bg-black px-4 text-sm text-white outline-none focus:border-accent";
-
-const MEDIA_TYPES = [
-  "Traffic",
-  "Content",
-  "Sponsorship",
-  "Other",
-] as const;
 
 export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
   const titleId = useId();
@@ -30,11 +21,8 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [brand, setBrand] = useState("");
-  const [markets, setMarkets] = useState("");
-  const [website, setWebsite] = useState("");
   const [company, setCompany] = useState("");
-  const [enquiryType, setEnquiryType] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
 
@@ -52,11 +40,8 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
     setFieldErrors({});
     setName("");
     setEmail("");
-    setBrand("");
-    setMarkets("");
-    setWebsite("");
     setCompany("");
-    setEnquiryType("");
+    setSubject("");
     setMessage("");
     setHoneypot("");
     openedAtRef.current = Date.now();
@@ -79,8 +64,7 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
 
   if (!open) return null;
 
-  const label =
-    formType === "affiliate" ? "Affiliate partnerships" : "Media & traffic";
+  const label = FORM_SOURCES[formType];
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -88,30 +72,16 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
     setErrorMessage("");
     setFieldErrors({});
 
-    const payload =
-      formType === "affiliate"
-        ? {
-            formType: "affiliate" as const,
-            name,
-            email,
-            brand,
-            markets,
-            website,
-            company,
-            message,
-            website_url: honeypot,
-            formStartedAt: openedAtRef.current,
-          }
-        : {
-            formType: "media" as const,
-            name,
-            email,
-            company,
-            enquiryType,
-            message,
-            website_url: honeypot,
-            formStartedAt: openedAtRef.current,
-          };
+    const payload = {
+      formType,
+      name,
+      email,
+      company,
+      subject,
+      message,
+      website_url: honeypot,
+      formStartedAt: openedAtRef.current,
+    };
 
     try {
       const response = await fetch("/api/enquiry", {
@@ -208,7 +178,6 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
             className="flex flex-col gap-3 px-5 py-5 sm:px-6"
             noValidate
           >
-            {/* Honeypot — hidden from users */}
             <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
               <label>
                 Website
@@ -254,89 +223,31 @@ export function EnquiryModal({ open, formType, onClose }: EnquiryModalProps) {
               ) : null}
             </div>
 
-            {formType === "affiliate" ? (
-              <>
-                <div>
-                  <input
-                    type="text"
-                    name="brand"
-                    placeholder="Brand / site"
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                    className={inputClass}
-                  />
-                  {fieldErrors.brand ? (
-                    <p className="mt-1 text-xs text-red-400">{fieldErrors.brand}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="markets"
-                    placeholder="Markets (e.g. UK, DE, CA)"
-                    value={markets}
-                    onChange={(e) => setMarkets(e.target.value)}
-                    className={inputClass}
-                  />
-                  {fieldErrors.markets ? (
-                    <p className="mt-1 text-xs text-red-400">
-                      {fieldErrors.markets}
-                    </p>
-                  ) : null}
-                </div>
-                <div>
-                  <input
-                    type="url"
-                    name="website"
-                    placeholder="Website (optional)"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    className={inputClass}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div>
-                  <input
-                    type="text"
-                    name="company"
-                    autoComplete="organization"
-                    placeholder="Company"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    className={inputClass}
-                  />
-                  {fieldErrors.company ? (
-                    <p className="mt-1 text-xs text-red-400">
-                      {fieldErrors.company}
-                    </p>
-                  ) : null}
-                </div>
-                <div>
-                  <select
-                    name="enquiryType"
-                    value={enquiryType}
-                    onChange={(e) => setEnquiryType(e.target.value)}
-                    className={selectClass}
-                  >
-                    <option value="" disabled>
-                      Enquiry type
-                    </option>
-                    {MEDIA_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                  {fieldErrors.enquiryType ? (
-                    <p className="mt-1 text-xs text-red-400">
-                      {fieldErrors.enquiryType}
-                    </p>
-                  ) : null}
-                </div>
-              </>
-            )}
+            <div>
+              <input
+                type="text"
+                name="company"
+                autoComplete="organization"
+                placeholder="Company (optional)"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className={inputClass}
+              />
+              {fieldErrors.subject ? (
+                <p className="mt-1 text-xs text-red-400">{fieldErrors.subject}</p>
+              ) : null}
+            </div>
 
             <div>
               <textarea

@@ -29,7 +29,7 @@ function ArrowIcon({ className = "" }: { className?: string }) {
 
 export function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [formType, setFormType] = useState<FormType>("affiliate");
+  const [formType, setFormType] = useState<FormType>("general");
 
   const openForm = useCallback((next: FormType) => {
     setFormType(next);
@@ -45,7 +45,7 @@ export function LandingPage() {
           <Logo />
           <button
             type="button"
-            onClick={() => openForm("media")}
+            onClick={() => openForm("general")}
             className="text-[13px] font-semibold tracking-[0.14em] text-accent uppercase underline decoration-accent/80 underline-offset-[6px] transition-opacity hover:opacity-80"
           >
             Contact
@@ -80,7 +80,7 @@ export function LandingPage() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button
                   type="button"
-                  onClick={() => openForm("affiliate")}
+                  onClick={() => openForm("partnerships")}
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent px-5 text-sm font-bold tracking-[0.08em] text-black uppercase transition-opacity hover:opacity-90"
                 >
                   Partner
@@ -88,7 +88,7 @@ export function LandingPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => openForm("media")}
+                  onClick={() => openForm("traffic")}
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-accent px-5 text-sm font-bold tracking-[0.08em] text-accent uppercase transition-colors hover:bg-accent/10"
                 >
                   Traffic Enquiries
