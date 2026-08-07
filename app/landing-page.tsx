@@ -106,7 +106,6 @@ export function LandingPage() {
               <MobileCtaCard
                 title="For partnerships"
                 body={friendlyBlurb}
-                tone="dark"
                 onClick={() => openForm("partnerships", "For partnerships")}
               />
             </div>
@@ -114,7 +113,6 @@ export function LandingPage() {
               <MobileCtaCard
                 title="For Traffic"
                 body={friendlyBlurb}
-                tone="neon"
                 onClick={() => openForm("traffic", "For Traffic")}
               />
             </div>
@@ -148,7 +146,7 @@ export function LandingPage() {
         <footer className="border-t border-foreground/15">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-6 sm:px-8 sm:py-8 lg:px-10">
             <Logo size="footer" />
-            <p className="shrink-0 text-right text-[9px] leading-none text-black sm:text-[11px]">
+            <p className="shrink-0 text-right text-[10px] leading-none text-black sm:text-xs">
               © 2026 BetStackers. All rights reserved.
             </p>
           </div>
@@ -169,24 +167,21 @@ export function LandingPage() {
 function MobileCtaCard({
   title,
   body,
-  tone,
   onClick,
 }: {
   title: string;
   body: string;
-  tone: "dark" | "neon";
   onClick: () => void;
 }) {
-  const buttonClass =
-    tone === "neon"
-      ? "mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#dfff00] text-sm font-semibold text-black"
-      : "mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white";
-
   return (
     <article className="rounded-2xl border border-foreground/40 bg-card/70 p-5">
       <h2 className="text-lg font-bold">{title}</h2>
       <p className="mt-2 text-sm leading-relaxed text-black">{body}</p>
-      <button type="button" onClick={onClick} className={buttonClass}>
+      <button
+        type="button"
+        onClick={onClick}
+        className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white"
+      >
         Send
         <SendIcon />
       </button>

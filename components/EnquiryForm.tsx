@@ -129,10 +129,8 @@ export function EnquiryForm({
     );
   }
 
-  const neon = formType === "traffic";
-  const buttonClass = neon
-    ? "mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#dfff00] text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
-    : "mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60";
+  const buttonClass =
+    "mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60";
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
