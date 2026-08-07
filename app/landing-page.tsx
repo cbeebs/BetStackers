@@ -150,10 +150,11 @@ export function LandingPage() {
             <div className="relative mx-auto w-full max-w-md lg:max-w-none">
               <Image
                 src="/hero-stack.png"
-                alt=""
-                width={1024}
-                height={1024}
+                alt="BetStackers isometric stack graphic"
+                width={485}
+                height={605}
                 priority
+                unoptimized
                 className="h-auto w-full object-contain"
               />
             </div>
