@@ -10,11 +10,30 @@ function clientIp(request: Request): string {
   return request.headers.get("x-real-ip") ?? "unknown";
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function fieldLines(fields: Record<string, string>): string {
   return Object.entries(fields)
     .filter(([, value]) => value.trim().length > 0)
     .map(([label, value]) => `${label}: ${value}`)
     .join("\n");
+}
+
+function fieldHtml(fields: Record<string, string>): string {
+  return Object.entries(fields)
+    .filter(([, value]) => value.trim().length > 0)
+    .map(
+      ([label, value]) =>
+        `<p style="margin:0 0 10px"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value).replaceAll("\n", "<br/>")}</p>`,
+    )
+    .join("");
 }
 
 export async function POST(request: Request) {
@@ -57,12 +76,10 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
-  // Honeypot — bots fill hidden fields
   if (data.website_url && data.website_url.trim().length > 0) {
     return Response.json({ ok: true });
   }
 
-  // Minimum time on page
   const startedAt = data.formStartedAt;
   if (
     typeof startedAt !== "number" ||
@@ -89,49 +106,79 @@ export async function POST(request: Request) {
     );
   }
 
-  const to = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
-  // From must NOT be partners@ — Gmail treats that as "me", so Reply
-  // fills To with partners@ instead of the enquirer (Reply-To).
-  const from =
-    process.env.CONTACT_FROM_EMAIL ??
-    "BetStackers <noreply@betstackers.com>";
+  // Deliver to personal inbox if set — avoids Gmail "Treat as alias" putting
+  // partners@ back in To on Reply. Otherwise partners@ (ImprovMX → Gmail).
+  const inbox = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
 
   let subject: string;
-  let text: string;
+  let fields: Record<string, string>;
 
   if (data.formType === "affiliate") {
     subject = `[Affiliate] ${data.brand} — ${data.markets}`;
-    text = fieldLines({
+    fields = {
       Form: "Affiliate partnerships",
       Name: data.name,
       Email: data.email,
-      "Reply-To": data.email,
       Brand: data.brand,
       Markets: data.markets,
       Website: data.website ?? "",
       Company: data.company ?? "",
       Message: data.message,
-    });
+    };
   } else {
     subject = `[Media] ${data.company} — ${data.enquiryType}`;
-    text = fieldLines({
+    fields = {
       Form: "Media & traffic",
       Name: data.name,
       Email: data.email,
-      "Reply-To": data.email,
       Company: data.company,
       "Enquiry type": data.enquiryType,
       Message: data.message,
-    });
+    };
   }
+
+  const replySubject = `Re: ${subject}`;
+  const mailto = `mailto:${encodeURIComponent(data.email)}?subject=${encodeURIComponent(replySubject)}`;
+
+  const text = [
+    `Reply to ${data.name}: ${data.email}`,
+    "",
+    fieldLines(fields),
+  ].join("\n");
+
+  const html = `
+    <div style="font-family:Inter,Arial,sans-serif;line-height:1.5;color:#111;max-width:560px">
+      <p style="margin:0 0 16px">
+        <a href="${mailto}"
+           style="display:inline-block;background:#00ff88;color:#000;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:6px">
+          Reply to ${escapeHtml(data.name)}
+        </a>
+      </p>
+      <p style="margin:0 0 20px;color:#444;font-size:14px">
+        Or hit Reply in Gmail — it should go to
+        <a href="${mailto}">${escapeHtml(data.email)}</a>
+        (not partners@).
+      </p>
+      <hr style="border:none;border-top:1px solid #eee;margin:0 0 16px" />
+      ${fieldHtml(fields)}
+    </div>
+  `;
+
+  // From display uses the enquirer name so the thread is obvious.
+  // Never From partners@ — that makes Gmail Reply target partners@.
+  const from = `${data.name.replace(/[<>"]/g, "")} via BetStackers <noreply@betstackers.com>`;
 
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
     from,
-    to: [to],
+    to: [inbox],
     replyTo: data.email,
     subject,
     text,
+    html,
+    headers: {
+      "Reply-To": data.email,
+    },
   });
 
   if (error) {
