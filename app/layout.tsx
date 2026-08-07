@@ -13,8 +13,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Landing",
-  description: "A simple landing page",
+  title: "BetStackers",
+  description: "BetStackers — coming soon to BetStakers.com",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -8,21 +8,21 @@ export default function Home() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-6 py-24 sm:px-8">
         <p className="font-display text-sm tracking-[0.2em] uppercase text-muted">
-          Your brand
+          BetStackers
         </p>
         <h1 className="mt-4 font-display text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-          Landing page
+          BetStackers
         </h1>
         <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-          Starter ready for GitHub and Vercel. Edit this page and push — Vercel
-          deploys from the repo.
+          Landing page starter for BetStakers.com. Push to GitHub and Vercel
+          deploys automatically.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <a
-            href="#get-started"
+            href="https://betstakers.com"
             className="inline-flex items-center justify-center bg-accent px-6 py-3 text-sm font-medium text-surface transition-opacity hover:opacity-90"
           >
-            Get started
+            BetStakers.com
           </a>
         </div>
       </div>
