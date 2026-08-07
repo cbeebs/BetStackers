@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useCallback, useState } from "react";
-import { ContactModal } from "@/components/ContactModal";
+import { EnquiryModal } from "@/components/EnquiryModal";
 import { Logo } from "@/components/Logo";
-import type { EnquirySource } from "@/lib/enquiry";
+import type { FormType } from "@/lib/enquiry";
 
 function ArrowIcon({ className = "" }: { className?: string }) {
   return (
@@ -29,10 +29,10 @@ function ArrowIcon({ className = "" }: { className?: string }) {
 
 export function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [source, setSource] = useState<EnquirySource>("General Contact");
+  const [formType, setFormType] = useState<FormType>("affiliate");
 
-  const openForm = useCallback((next: EnquirySource) => {
-    setSource(next);
+  const openForm = useCallback((next: FormType) => {
+    setFormType(next);
     setModalOpen(true);
   }, []);
 
@@ -45,7 +45,7 @@ export function LandingPage() {
           <Logo />
           <button
             type="button"
-            onClick={() => openForm("General Contact")}
+            onClick={() => openForm("media")}
             className="text-[13px] font-semibold tracking-[0.14em] text-accent uppercase underline decoration-accent/80 underline-offset-[6px] transition-opacity hover:opacity-80"
           >
             Contact
@@ -80,7 +80,7 @@ export function LandingPage() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button
                   type="button"
-                  onClick={() => openForm("Partner Enquiries")}
+                  onClick={() => openForm("affiliate")}
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent px-5 text-sm font-bold tracking-[0.08em] text-black uppercase transition-opacity hover:opacity-90"
                 >
                   Partner
@@ -88,7 +88,7 @@ export function LandingPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => openForm("Traffic Enquiries")}
+                  onClick={() => openForm("media")}
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-accent px-5 text-sm font-bold tracking-[0.08em] text-accent uppercase transition-colors hover:bg-accent/10"
                 >
                   Traffic Enquiries
@@ -124,7 +124,7 @@ export function LandingPage() {
         </footer>
       </div>
 
-      <ContactModal open={modalOpen} source={source} onClose={closeForm} />
+      <EnquiryModal open={modalOpen} formType={formType} onClose={closeForm} />
     </>
   );
 }
