@@ -124,7 +124,7 @@ export function LandingPage() {
                     click
                   </span>
                   <span
-                    className="headline-click-cursor pointer-events-none absolute top-[76%] left-[78%] z-10 md:top-[78%] md:left-[80%]"
+                    className="headline-click-cursor pointer-events-none absolute top-[78%] left-[62%] z-10"
                     aria-hidden
                   >
                     <CursorArrow />
