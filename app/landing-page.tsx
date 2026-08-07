@@ -15,6 +15,9 @@ const trafficBlurb =
 const generalBlurb =
   "Got something in mind? Simply reach out — we'll be sure to get back to you.";
 
+const TELEGRAM_HANDLE = "@betstackers";
+const TELEGRAM_URL = "https://t.me/betstackers";
+
 function MailIcon() {
   return (
     <svg
@@ -39,6 +42,25 @@ function MailIcon() {
         strokeWidth="1.25"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TelegramIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M21.5 4.5 2.8 11.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.7.4 1 .9 1 .5 0 .7-.2 1-.6l2.7-3.5 5.6 4.1c1 .6 1.8.3 2-.9L22.8 5.8c.3-1.3-.5-1.9-1.3-1.3Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m9.2 14.6 9.8-8.2"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -76,12 +98,12 @@ export function LandingPage() {
         </header>
 
         <main className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 lg:px-10">
-          <section className="grid items-center gap-10 pt-6 lg:grid-cols-2 lg:gap-8 lg:pt-10">
+          <section className="grid items-center gap-10 pt-11 lg:grid-cols-2 lg:gap-8 lg:pt-10">
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.18em]">
+              <p className="text-[9px] font-semibold tracking-[0.18em] sm:text-[10px]">
                 GLOBAL iGAMING TRAFFIC
               </p>
-              <h1 className="mt-4 text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-6xl lg:text-[4.25rem]">
+              <h1 className="mt-4 text-[4.05rem] leading-[0.98] font-extrabold tracking-tight md:text-6xl lg:text-[4.25rem]">
                 The click before
                 <br />
                 the bet.
@@ -159,6 +181,21 @@ export function LandingPage() {
               <EnquiryForm formType="traffic" />
             </article>
           </section>
+
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 flex h-12 items-center justify-between gap-3 rounded-xl bg-[#132a5c] px-4 text-white transition-opacity hover:opacity-90 sm:h-11 sm:px-5"
+          >
+            <span className="inline-flex items-center gap-2.5 text-[13px] font-semibold tracking-wide">
+              <TelegramIcon />
+              Telegram
+            </span>
+            <span className="font-mono text-[12px] tracking-wide text-white/95 sm:text-[13px]">
+              {TELEGRAM_HANDLE}
+            </span>
+          </a>
         </main>
 
         <footer className="border-t border-foreground/15">
