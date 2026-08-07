@@ -18,6 +18,27 @@ const generalBlurb =
 const TELEGRAM_HANDLE = "@betstackers";
 const TELEGRAM_URL = "https://t.me/betstackers";
 
+function CursorArrow() {
+  return (
+    <svg
+      width="20"
+      height="26"
+      viewBox="0 0 20 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]"
+    >
+      <path
+        d="M1.2 1.2 1.2 18.8 5.4 14.8 8.2 21.6 11.2 20.4 8.5 13.8 14.2 13.8 1.2 1.2Z"
+        fill="#fff"
+        stroke="#000"
+        strokeWidth="1.35"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function MailIcon() {
   return (
     <svg
@@ -104,7 +125,19 @@ export function LandingPage() {
                 GLOBAL iGAMING TRAFFIC
               </p>
               <h1 className="mt-4 text-[4.05rem] leading-[0.98] font-extrabold tracking-tight md:text-6xl lg:text-[4.25rem]">
-                The click before
+                The{" "}
+                <span className="relative inline-block">
+                  <span className="headline-click-word relative z-0 inline-block">
+                    click
+                  </span>
+                  <span
+                    className="headline-click-cursor pointer-events-none absolute top-[42%] left-[52%] z-10"
+                    aria-hidden
+                  >
+                    <CursorArrow />
+                  </span>
+                </span>{" "}
+                before
                 <br />
                 the bet.
               </h1>
