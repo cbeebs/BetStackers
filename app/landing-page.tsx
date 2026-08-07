@@ -6,8 +6,14 @@ import { EnquiryForm, EnquiryModal, SendIcon } from "@/components/EnquiryForm";
 import { Logo } from "@/components/Logo";
 import type { FormType } from "@/lib/enquiry";
 
-const friendlyBlurb =
-  "If you're interested in talking about either, simply reach out — we'll be sure to get back to you.";
+const partnershipBlurb =
+  "Looking to partner up? Drop us a note — we'd love to hear from you and we'll get back to you soon.";
+
+const trafficBlurb =
+  "Got traffic to talk about? Reach out anytime — we'll take a look and get back to you shortly.";
+
+const generalBlurb =
+  "Got something in mind? Simply reach out — we'll be sure to get back to you.";
 
 function MailIcon() {
   return (
@@ -42,13 +48,17 @@ export function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [formType, setFormType] = useState<FormType>("general");
   const [modalTitle, setModalTitle] = useState("Get in touch");
+  const [modalBlurb, setModalBlurb] = useState(generalBlurb);
 
-  const openForm = useCallback((next: FormType, title: string) => {
-    setFormType(next);
-    setModalTitle(title);
-    setModalOpen(true);
-  }, []);
-
+  const openForm = useCallback(
+    (next: FormType, title: string, blurb: string) => {
+      setFormType(next);
+      setModalTitle(title);
+      setModalBlurb(blurb);
+      setModalOpen(true);
+    },
+    [],
+  );
   return (
     <>
       <div className="min-h-dvh bg-background text-black">
@@ -57,7 +67,7 @@ export function LandingPage() {
 
           <button
             type="button"
-            onClick={() => openForm("general", "Get in touch")}
+            onClick={() => openForm("general", "Get in touch", generalBlurb)}
             className="flex h-10 w-10 items-center justify-center text-black transition-opacity hover:opacity-70"
             aria-label="Contact"
           >
@@ -105,15 +115,23 @@ export function LandingPage() {
             <div id="partner">
               <MobileCtaCard
                 title="For partnerships"
-                body={friendlyBlurb}
-                onClick={() => openForm("partnerships", "For partnerships")}
+                body={partnershipBlurb}
+                onClick={() =>
+                  openForm(
+                    "partnerships",
+                    "For partnerships",
+                    partnershipBlurb,
+                  )
+                }
               />
             </div>
             <div id="traffic">
               <MobileCtaCard
                 title="For Traffic"
-                body={friendlyBlurb}
-                onClick={() => openForm("traffic", "For Traffic")}
+                body={trafficBlurb}
+                onClick={() =>
+                  openForm("traffic", "For Traffic", trafficBlurb)
+                }
               />
             </div>
           </section>
@@ -125,7 +143,7 @@ export function LandingPage() {
             >
               <h2 className="text-xl font-bold">For partnerships</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
-                {friendlyBlurb}
+                {partnershipBlurb}
               </p>
               <EnquiryForm formType="partnerships" />
             </article>
@@ -136,7 +154,7 @@ export function LandingPage() {
             >
               <h2 className="text-xl font-bold">For Traffic</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-black">
-                {friendlyBlurb}
+                {trafficBlurb}
               </p>
               <EnquiryForm formType="traffic" />
             </article>
@@ -157,7 +175,7 @@ export function LandingPage() {
         open={modalOpen}
         formType={formType}
         title={modalTitle}
-        blurb={friendlyBlurb}
+        blurb={modalBlurb}
         onClose={() => setModalOpen(false)}
       />
     </>
