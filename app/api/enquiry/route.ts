@@ -83,17 +83,12 @@ export async function POST(request: Request) {
   const inbox = process.env.CONTACT_TO_EMAIL ?? "partners@betstackers.com";
   const source = FORM_SOURCES[data.formType];
 
-  const subject =
-    data.formType === "partnerships"
-      ? data.company?.trim() || `Partnership enquiry from ${data.name}`
-      : data.website?.trim() || `Traffic enquiry from ${data.name}`;
-
   const lines = [
     `Source: ${source}`,
     `Name: ${data.name}`,
+    `Company / Brand: ${data.company}`,
     `Email: ${data.email}`,
-    ...(data.company?.trim() ? [`Company: ${data.company.trim()}`] : []),
-    ...(data.website?.trim() ? [`Website / Source: ${data.website.trim()}`] : []),
+    `Subject: ${data.subject}`,
     "",
     "Message:",
     data.message,
@@ -106,7 +101,7 @@ export async function POST(request: Request) {
     from,
     to: [inbox],
     replyTo: data.email,
-    subject,
+    subject: data.subject,
     text: lines.join("\n"),
     headers: { "Reply-To": data.email },
   });

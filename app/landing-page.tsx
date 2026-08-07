@@ -6,6 +6,9 @@ import { EnquiryForm, EnquiryModal } from "@/components/EnquiryForm";
 import { Logo } from "@/components/Logo";
 import type { FormType } from "@/lib/enquiry";
 
+const friendlyBlurb =
+  "If you're interested in talking about either, simply reach out — we'll be sure to get back to you.";
+
 function MailIcon() {
   return (
     <svg
@@ -51,10 +54,12 @@ function ArrowIcon() {
 
 export function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [formType, setFormType] = useState<FormType>("partnerships");
+  const [formType, setFormType] = useState<FormType>("general");
+  const [modalTitle, setModalTitle] = useState("Get in touch");
 
-  const openForm = useCallback((next: FormType) => {
+  const openForm = useCallback((next: FormType, title: string) => {
     setFormType(next);
+    setModalTitle(title);
     setModalOpen(true);
   }, []);
 
@@ -64,13 +69,14 @@ export function LandingPage() {
         <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
           <Logo />
 
-          <a
-            href="#partner"
+          <button
+            type="button"
+            onClick={() => openForm("general", "Get in touch")}
             className="flex h-10 w-10 items-center justify-center text-foreground transition-opacity hover:opacity-60"
             aria-label="Contact"
           >
             <MailIcon />
-          </a>
+          </button>
         </header>
 
         <main className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 lg:px-10">
@@ -110,18 +116,18 @@ export function LandingPage() {
           <section className="mt-10 grid gap-4 md:hidden">
             <div id="partner">
               <MobileCtaCard
-                title="Partner"
-                body="Let's build something great together. Get in touch to explore partnership opportunities."
-                cta="Partner with us"
-                onClick={() => openForm("partnerships")}
+                title="For partnerships"
+                body={friendlyBlurb}
+                cta="Get in touch"
+                onClick={() => openForm("partnerships", "For partnerships")}
               />
             </div>
             <div id="traffic">
               <MobileCtaCard
-                title="Traffic Enquiries"
-                body="Have traffic to monetise? Submit your details and our team will get back to you."
-                cta="Submit Traffic"
-                onClick={() => openForm("traffic")}
+                title="For Traffic"
+                body={friendlyBlurb}
+                cta="Get in touch"
+                onClick={() => openForm("traffic", "For Traffic")}
               />
             </div>
           </section>
@@ -131,10 +137,9 @@ export function LandingPage() {
               id="partner"
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
-              <h2 className="text-xl font-bold">Partner</h2>
+              <h2 className="text-xl font-bold">For partnerships</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-foreground/75">
-                Let&apos;s build something great together. Get in touch to
-                explore partnership opportunities.
+                {friendlyBlurb}
               </p>
               <EnquiryForm formType="partnerships" />
             </article>
@@ -143,10 +148,9 @@ export function LandingPage() {
               id="traffic"
               className="rounded-2xl border border-foreground/40 bg-card/70 p-6 lg:p-7"
             >
-              <h2 className="text-xl font-bold">Traffic Enquiries</h2>
+              <h2 className="text-xl font-bold">For Traffic</h2>
               <p className="mt-2 mb-5 text-sm leading-relaxed text-foreground/75">
-                Have traffic to monetise? Submit your details and our team will
-                get back to you.
+                {friendlyBlurb}
               </p>
               <EnquiryForm formType="traffic" />
             </article>
@@ -166,6 +170,8 @@ export function LandingPage() {
       <EnquiryModal
         open={modalOpen}
         formType={formType}
+        title={modalTitle}
+        blurb={friendlyBlurb}
         onClose={() => setModalOpen(false)}
       />
     </>

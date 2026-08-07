@@ -28,9 +28,9 @@ export function EnquiryForm({
 }: EnquiryFormProps) {
   const openedAtRef = useRef(Date.now());
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-  const [website, setWebsite] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -56,9 +56,9 @@ export function EnquiryForm({
         body: JSON.stringify({
           formType,
           name,
-          email,
           company,
-          website,
+          email,
+          subject,
           message,
           website_url: honeypot,
           formStartedAt: openedAtRef.current,
@@ -82,9 +82,9 @@ export function EnquiryForm({
 
       setStatus("sent");
       setName("");
-      setEmail("");
       setCompany("");
-      setWebsite("");
+      setEmail("");
+      setSubject("");
       setMessage("");
       openedAtRef.current = Date.now();
       onSuccess?.();
@@ -114,13 +114,6 @@ export function EnquiryForm({
     );
   }
 
-  const secondPlaceholder =
-    formType === "partnerships" ? "Company" : "Website / Source";
-  const messagePlaceholder =
-    formType === "partnerships"
-      ? "Tell us about your business"
-      : "Tell us about your traffic";
-
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
       <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
@@ -146,33 +139,16 @@ export function EnquiryForm({
         />
       </Field>
 
-      <Field
-        error={
-          formType === "partnerships"
-            ? fieldErrors.company
-            : fieldErrors.website
-        }
-      >
-        {formType === "partnerships" ? (
-          <input
-            type="text"
-            name="company"
-            autoComplete="organization"
-            placeholder={secondPlaceholder}
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            className={inputClass}
-          />
-        ) : (
-          <input
-            type="text"
-            name="website"
-            placeholder={secondPlaceholder}
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            className={inputClass}
-          />
-        )}
+      <Field error={fieldErrors.company}>
+        <input
+          type="text"
+          name="company"
+          autoComplete="organization"
+          placeholder="Company or Brand"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          className={inputClass}
+        />
       </Field>
 
       <Field error={fieldErrors.email}>
@@ -187,11 +163,22 @@ export function EnquiryForm({
         />
       </Field>
 
+      <Field error={fieldErrors.subject}>
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className={inputClass}
+        />
+      </Field>
+
       <Field error={fieldErrors.message}>
         <textarea
           name="message"
           rows={4}
-          placeholder={messagePlaceholder}
+          placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className={textareaClass}
@@ -233,10 +220,18 @@ function Field({
 type ModalProps = {
   open: boolean;
   formType: FormType;
+  title?: string;
+  blurb?: string;
   onClose: () => void;
 };
 
-export function EnquiryModal({ open, formType, onClose }: ModalProps) {
+export function EnquiryModal({
+  open,
+  formType,
+  title = "Get in touch",
+  blurb = "Whether it's partnerships or traffic, simply reach out — we'll be sure to get back to you.",
+  onClose,
+}: ModalProps) {
   const titleId = useId();
 
   useEffect(() => {
@@ -254,12 +249,6 @@ export function EnquiryModal({ open, formType, onClose }: ModalProps) {
   }, [open, onClose]);
 
   if (!open) return null;
-
-  const title = formType === "partnerships" ? "Partner" : "Traffic Enquiries";
-  const blurb =
-    formType === "partnerships"
-      ? "Let's build something great together. Get in touch to explore partnership opportunities."
-      : "Have traffic to monetise? Submit your details and our team will get back to you.";
 
   return (
     <div
