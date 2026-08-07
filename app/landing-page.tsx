@@ -259,7 +259,7 @@ function MobileCtaCard({
         onClick={onClick}
         className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white"
       >
-        Send
+        Say hello
         <SendIcon />
       </button>
     </article>
