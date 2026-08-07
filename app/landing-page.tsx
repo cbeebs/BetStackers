@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useState } from "react";
-import { EnquiryForm, EnquiryModal } from "@/components/EnquiryForm";
+import { EnquiryForm, EnquiryModal, SendIcon } from "@/components/EnquiryForm";
 import { Logo } from "@/components/Logo";
 import type { FormType } from "@/lib/enquiry";
 
@@ -31,20 +31,6 @@ function MailIcon() {
         d="M4 7.5 12 13.5 20 7.5"
         stroke="currentColor"
         strokeWidth="1.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-      <path
-        d="M3 9L9 3M9 3H4.5M9 3V7.5"
-        stroke="currentColor"
-        strokeWidth="1.15"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -82,8 +68,8 @@ export function LandingPage() {
         <main className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 lg:px-10">
           <section className="grid items-center gap-10 pt-6 lg:grid-cols-2 lg:gap-8 lg:pt-10">
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.18em] uppercase">
-                Global iGaming Traffic and Content.
+              <p className="text-[11px] font-semibold tracking-[0.18em]">
+                GLOBAL iGAMING TRAFFIC
               </p>
               <h1 className="mt-4 text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-6xl lg:text-[4.25rem]">
                 The click before
@@ -120,7 +106,7 @@ export function LandingPage() {
               <MobileCtaCard
                 title="For partnerships"
                 body={friendlyBlurb}
-                cta="Get in touch"
+                tone="dark"
                 onClick={() => openForm("partnerships", "For partnerships")}
               />
             </div>
@@ -128,7 +114,7 @@ export function LandingPage() {
               <MobileCtaCard
                 title="For Traffic"
                 body={friendlyBlurb}
-                cta="Get in touch"
+                tone="neon"
                 onClick={() => openForm("traffic", "For Traffic")}
               />
             </div>
@@ -183,25 +169,26 @@ export function LandingPage() {
 function MobileCtaCard({
   title,
   body,
-  cta,
+  tone,
   onClick,
 }: {
   title: string;
   body: string;
-  cta: string;
+  tone: "dark" | "neon";
   onClick: () => void;
 }) {
+  const buttonClass =
+    tone === "neon"
+      ? "mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#dfff00] text-sm font-semibold text-black"
+      : "mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white";
+
   return (
     <article className="rounded-2xl border border-foreground/40 bg-card/70 p-5">
       <h2 className="text-lg font-bold">{title}</h2>
       <p className="mt-2 text-sm leading-relaxed text-foreground/75">{body}</p>
-      <button
-        type="button"
-        onClick={onClick}
-        className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white"
-      >
-        {cta}
-        <ArrowIcon />
+      <button type="button" onClick={onClick} className={buttonClass}>
+        Send
+        <SendIcon />
       </button>
     </article>
   );

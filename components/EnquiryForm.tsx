@@ -21,6 +21,20 @@ const inputClass =
 const textareaClass =
   "w-full resize-none rounded-lg border border-foreground/40 bg-white/40 px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-foreground/45 focus:border-foreground";
 
+export function SendIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M4.5 19.5 20 12 4.5 4.5 4.5 10.5 14 12 4.5 13.5 4.5 19.5Z"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function EnquiryForm({
   formType,
   variant = "card",
@@ -106,13 +120,19 @@ export function EnquiryForm({
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-5 inline-flex h-10 items-center justify-center rounded-lg bg-black px-4 text-sm font-semibold text-white"
+          className="mt-5 inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-black px-4 text-sm font-semibold text-white"
         >
           Send another
+          <SendIcon />
         </button>
       </div>
     );
   }
+
+  const neon = formType === "traffic";
+  const buttonClass = neon
+    ? "mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#dfff00] text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
+    : "mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-black text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60";
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
@@ -194,9 +214,10 @@ export function EnquiryForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-1 inline-flex h-11 w-full items-center justify-center rounded-lg bg-black text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+        className={buttonClass}
       >
         {status === "sending" ? "Sending…" : "Send"}
+        {status === "sending" ? null : <SendIcon />}
       </button>
     </form>
   );
